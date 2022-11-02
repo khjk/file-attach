@@ -1,16 +1,16 @@
 # file-attach
 
-#FileAttach
+# FileAttach
 ---
-##Skills
+## Skills
 > SpringBoot 2.7.5, H2, JPA, javascript , jquery, thymleaf, bootstrap, css
 
-##Feature
+## Feature
 1. 확장자 설정
 2. 파일 업로드
 3. 전체 문건 목록 보기 
 
-##Details
+## Details
 - 커스텀확장자 20자 제한
 - 커스텀확장자 중복 등록 체크 
 - 고정 확장자 등록 불가
@@ -25,5 +25,5 @@ visit WebApp-Link
 
 
 
-##ERD
+## ERD
 ![image](https://user-images.githubusercontent.com/16586926/199536459-6cae37cd-d20d-43a9-bb2c-4f5b63b3fc1b.png)

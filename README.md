@@ -26,4 +26,5 @@
 - 파일 저장 완료 후 확인페이지 이동
  
 ## ERD
-![image](https://user-images.githubusercontent.com/16586926/199536459-6cae37cd-d20d-43a9-bb2c-4f5b63b3fc1b.png)
+![image](https://user-images.githubusercontent.com/16586926/199549251-1d89de21-f546-4ede-9cca-ee0e6ecd33f1.png)
+

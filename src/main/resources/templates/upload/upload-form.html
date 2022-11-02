@@ -4,26 +4,28 @@
     <title>Hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/file_upload.js"></script>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div class="py-2 text-left">
-        <mark th:if="${#strings.isEmpty(forbiddenExt)}"> ✅ 모든 파일 첨부 가능합니다. </mark>
-        <mark th:if="${not #strings.isEmpty(forbiddenExt)}"> ❗ 첨부 불가 확장자를 확인하세요. </mark>
+        <mark th:if="${#strings.isEmpty(forbiddenExt)}"> ✅ 모든 파일첨부 가능합니다. </mark>
+        <mark th:if="${not #strings.isEmpty(forbiddenExt)}"> ❗ 첨부불가 확장자를 확인하세요. </mark>
     </div>
     <span class="text-danger" th:text="${forbiddenExt}"></span>
     <div class="py-2"></div>
-    <form th:action method="post" enctype="multipart/form-data">
+    <form id="upldForm" >
         <ul class="list-group">
             <li class="list-group-item">
                 <span class="py-1">파일설명</span>
-                <input class="form-control input-lg" maxlength="50" type="text" name="description">
+                <input class="form-control input-lg" id="descInput" maxlength="50" type="text" name="description" required>
             </li>
             <li class="list-group-item">
-                <input type="file" multiple="multiple" name="attachFiles">
+                <input type="file" id="fileInput" multiple="multiple" name="attachFiles">
             </li>
         </ul>
-        <input class="btn btn-primary float-right my-3" type="submit" value="저장"/>
+        <input class="btn btn-primary float-right my-3" th:onclick="|fileUpload()|" value="저장"/>
     </form>
 </div> <!-- /container -->
 </body>

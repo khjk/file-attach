@@ -1,17 +1,19 @@
 package flow.fileattach.service;
 
+import flow.fileattach.domain.item.AttachFile;
 import flow.fileattach.domain.item.Ext;
 import flow.fileattach.domain.repository.ExtRepository;
 import flow.fileattach.domain.repository.ExtSearch;
+import flow.fileattach.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.regex.Pattern;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -64,4 +66,24 @@ public class ExtService {
     public void delete(String extName) {
         extRepository.delete(extName);
     }
+
+    /**
+     * 금지된 업로드 항목이 있는지 검사
+     */
+    public String hasForbiddenExt(List<MultipartFile> multipartFiles) throws IOException {
+        List<Ext> forbiddenLst = findForbiddenExt();
+        List<AttachFile> storeFileResult = new ArrayList<>();
+        Set<String> set = new HashSet<>();
+        for (MultipartFile multiPartFile : multipartFiles) {
+            String ext = FileUtil.extractExt(multiPartFile.getOriginalFilename());
+            Optional<Ext> check = forbiddenLst.stream().filter(i -> ext.equalsIgnoreCase(i.getExtName())).findAny();
+            if (check.isPresent()) {
+                set.add(check.get().getExtName());
+            }
+        }
+
+        return set.stream().collect(Collectors.joining(", "));
+    }
+
+
 }

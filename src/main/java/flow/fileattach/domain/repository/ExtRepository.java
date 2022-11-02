@@ -33,24 +33,23 @@ public class ExtRepository {
 
         String jpql = "select e from Ext e Where 1=1";
 
-        if(extSearch.getIsForbidden() != null) {
+        if (extSearch.getIsForbidden() != null) {
             jpql += " and e.checkedYn = :checkedYn";
         }
-        if(extSearch.getIsFixed() != null) {
+        if (extSearch.getIsFixed() != null) {
             jpql += " and e.fixedYn = :fixedYn";
         }
         TypedQuery<Ext> query = em.createQuery(jpql, Ext.class);
 
-        if(extSearch.getIsForbidden() != null) {
+        if (extSearch.getIsForbidden() != null) {
             query.setParameter("checkedYn", extSearch.getIsForbidden());
         }
-        if(extSearch.getIsFixed() != null) {
+        if (extSearch.getIsFixed() != null) {
             query.setParameter("fixedYn", extSearch.getIsFixed());
         }
 
         return query.getResultList();
     }
-
 
 
 }

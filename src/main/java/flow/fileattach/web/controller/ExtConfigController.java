@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +56,7 @@ public class ExtConfigController {
         model.addAttribute("fixedExt", getFixedExtList());
         List<Ext> addedLst = getAddedExtList();
         model.addAttribute("addedExt", addedLst);
-        model.addAttribute("availSize", addedLst.size()+ "/" + MAX_EXT_SIZE);
+        model.addAttribute("availSize", addedLst.size() + "/" + MAX_EXT_SIZE);
         return "/ext/ext-edit";
     }
 
@@ -66,7 +65,6 @@ public class ExtConfigController {
      */
     @PutMapping("/ext/edit/{extName}")
     public ResponseEntity<List<Ext>> updateExt(@PathVariable String extName, @RequestBody ExtForm extForm) {
-
         extService.updateExt(extName, extForm.getIsChecked());
 
         return new ResponseEntity<>(extService.findFixedExt(), HttpStatus.OK);
@@ -78,13 +76,13 @@ public class ExtConfigController {
     @PostMapping("/ext/edit")
     public ResponseEntity<ExtForm> addExt(@RequestBody ExtForm extForm) {
         String extName = extForm.getExtName();
-        if(extName.isEmpty()) {
+        if (extName.isEmpty()) {
             throw new IllegalArgumentException("확장자명은 필수 입력값입니다");
         }
         if (!isEng(extName)) {
             throw new IllegalArgumentException("확장자명은 영문만 입력 가능합니다.");
         }
-        if(extName.length() > 20) {
+        if (extName.length() > 20) {
             throw new IllegalArgumentException("확장자 길이는 최대 20자까지 허용됩니다.");
         }
 
@@ -98,10 +96,10 @@ public class ExtConfigController {
         boolean isExisted = true;
         try {
             extService.findExt(extName);
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             isExisted = false;
         }
-        if(isExisted) {
+        if (isExisted) {
             throw new IllegalArgumentException("기등록된 확장자입니다.");
         }
 
@@ -111,13 +109,13 @@ public class ExtConfigController {
     }
 
     /**
-     * X를 누르면 삭제된다.
+     * - X를 누르면 삭제된다.
      */
     @DeleteMapping("/ext/edit/{extValue}")
     public ResponseEntity<ExtForm> removeExt(@RequestBody ExtForm extForm) {
         String extName = extForm.getExtName();
         //안겹치는지 확인
-        if(extService.findExt(extName) == null) {
+        if (extService.findExt(extName) == null) {
             throw new IllegalArgumentException("등록된 확장자가 없습니다.");
         }
         extService.delete(extName);
@@ -125,6 +123,9 @@ public class ExtConfigController {
         return new ResponseEntity<>(extForm, HttpStatus.OK);
     }
 
+    /**
+     * - 영문 여부 확인
+     */
     public boolean isEng(String word) {
         return Pattern.matches("^[a-zA-Z]*$", word);
     }

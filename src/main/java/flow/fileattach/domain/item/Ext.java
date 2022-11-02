@@ -8,16 +8,17 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "ext")
-@Getter @Setter
+@Getter
+@Setter
 public class Ext {
     @Id
     private String extName;
 
-    @Convert(converter= BooleanToYNConverter.class)
+    @Convert(converter = BooleanToYNConverter.class)
     @Column(updatable = false)
     private Boolean fixedYn;
 
-    @Convert(converter= BooleanToYNConverter.class)
+    @Convert(converter = BooleanToYNConverter.class)
     private Boolean checkedYn;
 }
 

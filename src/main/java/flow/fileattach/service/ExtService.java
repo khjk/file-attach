@@ -30,6 +30,10 @@ public class ExtService {
         return ext;
     }
 
+    public long getNotFixedExtCnt() {
+        return extRepository.getExtCnt();
+    }
+
     public List<Ext> findForbiddenExt() {
         ExtSearch extSearch = new ExtSearch();
         extSearch.setIsForbidden(true);

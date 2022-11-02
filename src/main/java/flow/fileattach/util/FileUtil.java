@@ -2,9 +2,6 @@ package flow.fileattach.util;
 
 import flow.fileattach.domain.item.AttachFile;
 import flow.fileattach.domain.item.Document;
-import flow.fileattach.service.ExtService;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

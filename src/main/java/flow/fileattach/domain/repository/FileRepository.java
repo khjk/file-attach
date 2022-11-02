@@ -15,7 +15,7 @@ public class FileRepository {
     private final EntityManager em;
 
     public void save(Document post) {
-        if(post.getId() == null) {
+        if (post.getId() == null) {
             em.persist(post);
         } else {
             em.merge(post);

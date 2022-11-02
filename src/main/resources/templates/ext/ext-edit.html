@@ -25,7 +25,7 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-        <span>고정확장자</span>
+        <span class="font-weight-bold">고정확장자</span>
         <div th:each="ext : ${fixedExt}" class="form-check form-check-inline">
             <input type="checkbox" th:value="${ext.extName}" th:checked="${ext.checkedYn}" th:id="${#ids.seq('id_ext_')}" class="form-check-input">
             <label th:for="${#ids.prev('id_ext_')}"
@@ -34,7 +34,7 @@
     </div>
     <div class="py-1">
     <hr/>
-        <span>커스텀 확장자</span>
+        <span class="font-weight-bold">커스텀 확장자</span>
         <div class="container-fluid" >
             <div class="row">
                 <input class="col-xs-10 input-lg" maxlength="20" type="text" id="extName" placeholder="확장자 입력" name="extName">

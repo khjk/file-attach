@@ -1,7 +1,9 @@
 package flow.fileattach.domain.item;
 
 import com.sun.istack.NotNull;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,7 +12,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Table(name = "file")
 @Getter
-@NoArgsConstructor(access= AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AttachFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +20,7 @@ public class AttachFile {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name="document_id", nullable = false)
+    @JoinColumn(name = "document_id", nullable = false)
     private Document document;
 
     @NotNull

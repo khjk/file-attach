@@ -24,6 +24,14 @@ public class ExtRepository {
         return em.find(Ext.class, extName);
     }
 
+    public Long getExtCnt() {
+        String jpql = "select count(e) as cnt from Ext e Where e.fixedYn = false"; //불포함인것만
+
+        TypedQuery<Long> query = em.createQuery(jpql, Long.class);
+
+        return query.getSingleResult();
+    }
+
     public void delete(String extName) {
         Ext ext = findById(extName);
         em.remove(ext);

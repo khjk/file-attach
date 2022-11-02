@@ -3,7 +3,6 @@ package flow.fileattach.web.controller;
 import flow.fileattach.domain.item.Ext;
 import flow.fileattach.domain.repository.ExtSearch;
 import flow.fileattach.service.ExtService;
-import flow.fileattach.util.exception.ErrorResult;
 import flow.fileattach.web.dto.ExtForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,14 +23,6 @@ import java.util.regex.Pattern;
 public class ExtConfigController {
     private final ExtService extService;
     private final String MAX_EXT_SIZE = "200";
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorResult> illegalExHandle(IllegalArgumentException e) {
-        log.error("[exceptionHandle] ex", e);
-        return new ResponseEntity(new ErrorResult("BAD", e.getMessage()), HttpStatus.BAD_REQUEST);
-    }
-
 
     @Cacheable("/fixedExt")
     public List<Ext> getFixedExtList() {
@@ -103,13 +94,18 @@ public class ExtConfigController {
             throw new IllegalArgumentException("기등록된 확장자입니다.");
         }
 
+        //200개 제한
+        int now = (int) extService.getNotFixedExtCnt();
+        if (now == Integer.parseInt(MAX_EXT_SIZE)) {
+            throw new IllegalArgumentException("최대 " + MAX_EXT_SIZE + "개까지 저장 가능합니다.");
+        }
         extService.saveExt(extForm.getExtName());
 
         return new ResponseEntity<>(extForm, HttpStatus.OK);
     }
 
     /**
-     * - X를 누르면 삭제된다.
+     * X를 누르면 삭제된다.
      */
     @DeleteMapping("/ext/edit/{extValue}")
     public ResponseEntity<ExtForm> removeExt(@RequestBody ExtForm extForm) {
@@ -124,10 +120,10 @@ public class ExtConfigController {
     }
 
     /**
-     * - 영문 여부 확인
+     * 영문 여부 확인
      */
     public boolean isEng(String word) {
-        return Pattern.matches("^[a-zA-Z]*$", word);
+        return !Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$", word);
     }
 
 

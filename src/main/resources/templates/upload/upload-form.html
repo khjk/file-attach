@@ -1,20 +1,29 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div class="container">
-    <div class="py-5 text-center">
-        <h2>파일 등록 </h2>
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div class="py-2 text-left">
+        <mark th:if="${#strings.isEmpty(forbiddenExt)}"> ✅ 모든 파일 첨부 가능합니다. </mark>
+        <mark th:if="${not #strings.isEmpty(forbiddenExt)}"> ❗ 첨부 불가 확장자를 확인하세요. </mark>
     </div>
-    <h4 class="mb-3">파일 종류 입력</h4>
+    <span class="text-danger" th:text="${forbiddenExt}"></span>
+    <div class="py-2"></div>
     <form th:action method="post" enctype="multipart/form-data">
-        <ul>
-            <li>파일설명 <input type="text" name="description"></li>
-            <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles"></li>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="py-1">파일설명</span>
+                <input class="form-control input-lg" maxlength="50" type="text" name="description">
+            </li>
+            <li class="list-group-item">
+                <input type="file" multiple="multiple" name="attachFiles">
+            </li>
         </ul>
-        <input type="submit" value="저장"/>
+        <input class="btn btn-primary float-right my-3" type="submit" value="저장"/>
     </form>
 </div> <!-- /container -->
 </body>

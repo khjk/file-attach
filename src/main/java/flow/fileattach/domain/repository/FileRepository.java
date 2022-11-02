@@ -27,7 +27,7 @@ public class FileRepository {
     }
 
     public List<Document> findAllDocuments() {
-        return em.createQuery("select f from File f", Document.class)
+        return em.createQuery("select d from Document d", Document.class)
                 .getResultList();
     }
 

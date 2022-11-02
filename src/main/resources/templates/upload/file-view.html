@@ -1,16 +1,37 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
+<head th:replace="fragments/header :: header">
+    <title>파일목록</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div class="container">
-    <div class="py-5 text-center">
-        <h2>파일 조회</h2>
-    </div>
-    파일 Description: <span th:text="${file.description}">파일설명</span><br/>
-    파일 등록시간: <span th:text="${file.savedTime}">파일설명</span><br/>
-    첨부파일: <a th:each="file : ${file.attachFiles}" th:href="|/attach/${file.id}|" th:text="${file.getUploadFileName()}"/>
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Description</th>
+                <th>등록시간</th>
+                <th>첨부파일</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <span th:text="${file.description}">파일설명</span>
+                </td>
+                <td>
+                    <span th:text="${file.savedTime}">파일등록시간</span><br/>
+                </td>
+                <td>
+                    <div th:each="file : ${file.attachFiles}">
+                        <a th:href="|/attach/${file.id}|" th:text="${file.getUploadFileName()}"/>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
 </div> <!-- /container -->
 </body>
 </html>

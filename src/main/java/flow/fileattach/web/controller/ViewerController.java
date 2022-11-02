@@ -43,15 +43,15 @@ public class ViewerController {
     }
 
     /**
-     * 파일을 보여준다
+     * 문건목록을 보여준다
      */
     @GetMapping("/files")
     public String showDocLst(Model model) {
         List<Document> allDoc = fileService.findAllDocuments();
 
-        model.addAttribute("document", allDoc);
+        model.addAttribute("documents", allDoc);
 
-        return "/upload/file-view";
+        return "/upload/doc-view";
     }
 
 

@@ -1,12 +1,10 @@
 package flow.fileattach.domain.repository;
 
-import flow.fileattach.domain.item.Document;
 import flow.fileattach.domain.item.Ext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -27,23 +25,32 @@ public class ExtRepository {
     }
 
     public void delete(String extName) {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-
         Ext ext = findById(extName);
         em.remove(ext);
-
-        transaction.commit();
     }
 
-    public List<Ext> findExtByCondition(Boolean isForbidden) {
-        String checkedYn = isForbidden == true ? "Y" : "N";
+    public List<Ext> findExtByCondition(ExtSearch extSearch) {
 
-        String jpql = "select e from Ext e where e.checkedYn = :checkedYn";
+        String jpql = "select e from Ext e Where 1=1";
+
+        if(extSearch.getIsForbidden() != null) {
+            jpql += " and e.checkedYn = :checkedYn";
+        }
+        if(extSearch.getIsFixed() != null) {
+            jpql += " and e.fixedYn = :fixedYn";
+        }
         TypedQuery<Ext> query = em.createQuery(jpql, Ext.class);
 
-        return query.setParameter("checkedYn", checkedYn).getResultList();
+        if(extSearch.getIsForbidden() != null) {
+            query.setParameter("checkedYn", extSearch.getIsForbidden());
+        }
+        if(extSearch.getIsFixed() != null) {
+            query.setParameter("fixedYn", extSearch.getIsFixed());
+        }
+
+        return query.getResultList();
     }
+
 
 
 }

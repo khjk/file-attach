@@ -42,10 +42,6 @@ public class FileService {
         List<AttachFile> fileVOLst = fileUtil.storeFiles(form.getAttachFiles(), doc);
         doc.setAttachFiles(fileVOLst);
 
-        for(AttachFile file : fileVOLst) {
-            log.info("서버저장 파일명={}" + file.getStoreFileName());
-        }
-
         fileRepository.save(doc);
 
         return doc.getId();

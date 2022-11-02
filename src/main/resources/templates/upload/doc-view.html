@@ -1,16 +1,29 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
+<head th:replace="fragments/header :: header">
+    <title>문건목록</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div class="container">
-    <div class="py-5 text-center">
-        <h2>파일 조회</h2>
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div th:if="${#lists.isEmpty(documents)}">
+        <mark class="text-center"> 현재 등록된 파일이 없습니다. </mark>
     </div>
-    파일 Description: <span th:text="${file.description}">파일설명</span><br/>
-    첨부파일: <a th:if="${file.attachFile}" th:href="|/attach/${file.id}|" th:text="${file.getAttachFile().getUploadFileName()}"/><br/>
-    <img th:each="imageFile : ${file.imageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"/>
+   <th:block th:each="document : ${documents}">
+        <div>
+            문건 번호 : <a th:href="|/files/${document.id}|" th:text="${document.id}"></a>
+        </div>
+        <div>
+            저장시간 : <span th:text="${document.savedTime}"></span>
+        </div>
+        <div>
+            Description : <span th:text="${document.description}"></span>
+        </div>
+
+        <hr />
+    </th:block>
+
 </div> <!-- /container -->
 </body>
 </html>

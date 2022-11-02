@@ -1,21 +1,55 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
+<head th:replace="fragments/header :: header">
+    <title>확장자 설정</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+<!-- jquery -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/ext_edit.js"></script>
 <body>
+<style type="text/css">
+    .myBtnBox {
+        display: flex;
+        background-color: rgb(233, 236, 239);
+        box-sizing: border-box;
+        border-radius: 0.3rem;
+        min-width:100%;
+        min-height:300px;
+        height:auto;
+        width:100%;
+        padding:10px;
+    }
+
+</style>
 <div class="container">
-    <div class="py-5 text-center">
-        <h2>파일 등록 </h2>
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <span>고정확장자</span>
+        <div th:each="ext : ${fixedExt}" class="form-check form-check-inline">
+            <input type="checkbox" th:value="${ext.extName}" th:checked="${ext.checkedYn}" th:id="${#ids.seq('id_ext_')}" class="form-check-input">
+            <label th:for="${#ids.prev('id_ext_')}"
+                   th:text="${ext.extName}" class="form-check-label">exe</label>
+        </div>
     </div>
-    <h4 class="mb-3">파일 종류 입력</h4>
-    <form th:action method="post" enctype="multipart/form-data">
-        <ul>
-            <li>파일설명 <input type="text" name="description"></li>
-            <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles"></li>
-        </ul>
-        <input type="submit" value="저장"/>
-    </form>
-</div> <!-- /container -->
+    <div class="py-1">
+    <hr/>
+        <span>커스텀 확장자</span>
+        <div class="container-fluid" >
+            <div class="row">
+                <input class="col-xs-10 input-lg" maxlength="20" type="text" id="extName" placeholder="확장자 입력" name="extName">
+                <div class="col-xs-2">
+                    <input class="btn btn-primary float-right mx-1" th:onclick="|addExt()|" type="submit" value="+추가"/>
+                </div>
+            </div>
+        </div>
+        <span class="py-1 pull-right" th:text="${availSize}"></span>
+        <div class="myBtnBox my-1">
+            <div class="m-1" th:each="addExt : ${addedExt}">
+                <input type="button" class="btn-sm btn btn-info" th:onclick="removeExt(this.getAttribute('value'))" th:value="|${addExt.extName}  X|"></input>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

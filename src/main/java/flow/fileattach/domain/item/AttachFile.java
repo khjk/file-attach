@@ -30,13 +30,13 @@ public class AttachFile {
     private String storeFileName; //서버 내부에서 관리하는 파일명
 
     @NotNull
-    private String ext; //확장자명
+    private String extName; //확장자명
 
-    public AttachFile(Document document, String uploadFileName, String storeFileName, String ext) {
+    public AttachFile(Document document, String uploadFileName, String storeFileName, String extName) {
         this.document = document;
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
-        this.ext = ext;
+        this.extName = extName;
     }
 
 }

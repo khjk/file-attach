@@ -16,7 +16,7 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 public class Document {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "document_id")
     private Long id;
 

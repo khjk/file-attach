@@ -3,7 +3,7 @@ file:
 
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/file-attach;
+    url: jdbc:h2:tcp://localhost/~/file-attach
     username: sa
     password:
     driver-class-name: org.h2.Driver

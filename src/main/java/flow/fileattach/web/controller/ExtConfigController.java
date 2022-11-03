@@ -70,8 +70,8 @@ public class ExtConfigController {
         if (extName.isEmpty()) {
             throw new IllegalArgumentException("확장자명은 필수 입력값입니다");
         }
-        if (!isEng(extName)) {
-            throw new IllegalArgumentException("확장자명은 영문만 입력 가능합니다.");
+        if (isKor(extName)) {
+            throw new IllegalArgumentException("확장자명은 한글을 입력할 수 없습니다.");
         }
         if (extName.length() > 20) {
             throw new IllegalArgumentException("확장자 길이는 최대 20자까지 허용됩니다.");
@@ -122,8 +122,8 @@ public class ExtConfigController {
     /**
      * 영문 여부 확인
      */
-    public boolean isEng(String word) {
-        return !Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$", word);
+    public boolean isKor(String word) {
+        return Pattern.matches("^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$", word);
     }
 
 

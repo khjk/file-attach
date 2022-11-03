@@ -5,7 +5,7 @@
 
 
 ## Link
-
+http://ec2-3-38-9-31.ap-northeast-2.compute.amazonaws.com:8080/
 
 ## Feature
 1. 확장자 설정

@@ -26,5 +26,5 @@ http://ec2-3-38-9-31.ap-northeast-2.compute.amazonaws.com:8080/
 - 파일 저장 완료 후 확인페이지 이동
  
 ## ERD
-![image](https://user-images.githubusercontent.com/16586926/199549251-1d89de21-f546-4ede-9cca-ee0e6ecd33f1.png)
+![image](https://user-images.githubusercontent.com/16586926/199647668-ca05a92e-a362-4382-9058-6a72ccd03c2f.png)
 

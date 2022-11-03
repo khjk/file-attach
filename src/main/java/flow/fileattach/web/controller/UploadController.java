@@ -37,20 +37,20 @@ public class UploadController {
     /**
      * 등록 폼을 보여준다.
      */
-    @GetMapping("/files/new")
+    @GetMapping("files/new")
     public String newFile(Model model) {
         //금지된 확장자 목록 가져오기
         String forbiddenExt = extService.findForbiddenExt().stream()
                 .map(i -> i.getExtName()).collect(Collectors.joining(", "));
         model.addAttribute("forbiddenExt", forbiddenExt);
 
-        return "/upload/upload-form";
+        return "upload/upload-form";
     }
 
     /**
      * 폼의 데이터를 저장하고 보여주는 화면으로 리다이렉트한다.
      */
-    @PostMapping("/files/new")
+    @PostMapping("files/new")
     public ResponseEntity<FileForm> saveFile(@ModelAttribute FileForm form) throws IOException {
         //업로드 금지 확장자 여부 체크
         String forbiddenExt = extService.hasForbiddenExt(form.getAttachFiles());
@@ -69,7 +69,7 @@ public class UploadController {
     /**
      * 파일 다운로드
      */
-    @GetMapping("/attach/{fileId}")
+    @GetMapping("attach/{fileId}")
     public ResponseEntity<Resource> downloadAttach(@PathVariable Long fileId) throws MalformedURLException {
         AttachFile file = fileService.findFile(fileId);
 

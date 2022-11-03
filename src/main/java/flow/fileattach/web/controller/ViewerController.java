@@ -29,25 +29,25 @@ public class ViewerController {
     /**
      * 파일을 보여준다
      */
-    @GetMapping("/files/{id}")
+    @GetMapping("files/{id}")
     public String showFiles(@PathVariable Long id, Model model) {
         Document fileVO = fileService.findDocument(id);
 
         model.addAttribute("file", fileVO);
 
-        return "/upload/file-view";
+        return "upload/file-view";
     }
 
     /**
      * 문건목록을 보여준다
      */
-    @GetMapping("/files")
+    @GetMapping("files")
     public String showDocLst(Model model) {
         List<Document> allDoc = fileService.findAllDocuments();
 
         model.addAttribute("documents", allDoc);
 
-        return "/upload/doc-view";
+        return "upload/doc-view";
     }
 
 }

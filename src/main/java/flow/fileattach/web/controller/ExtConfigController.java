@@ -24,7 +24,7 @@ public class ExtConfigController {
     private final ExtService extService;
     private final String MAX_EXT_SIZE = "200";
 
-    @Cacheable("/fixedExt")
+    @Cacheable("fixedExt")
     public List<Ext> getFixedExtList() {
         return extService.findFixedExt();
     }
@@ -42,19 +42,19 @@ public class ExtConfigController {
     /**
      * 확장자 수정 폼을 보여준다.
      */
-    @GetMapping("/ext/edit")
+    @GetMapping("ext/edit")
     public String newFile(Model model) {
         model.addAttribute("fixedExt", getFixedExtList());
         List<Ext> addedLst = getAddedExtList();
         model.addAttribute("addedExt", addedLst);
         model.addAttribute("availSize", addedLst.size() + "/" + MAX_EXT_SIZE);
-        return "/ext/ext-edit";
+        return "ext/ext-edit";
     }
 
     /**
      * 체크박스가 선택될때마다 폼의 데이터를 저장한다.
      */
-    @PutMapping("/ext/edit/{extName}")
+    @PutMapping("ext/edit/{extName}")
     public ResponseEntity<List<Ext>> updateExt(@PathVariable String extName, @RequestBody ExtForm extForm) {
         extService.updateExt(extName, extForm.getIsChecked());
 
@@ -64,7 +64,7 @@ public class ExtConfigController {
     /**
      * 새로운 확장자를 저장한다.
      */
-    @PostMapping("/ext/edit")
+    @PostMapping("ext/edit")
     public ResponseEntity<ExtForm> addExt(@RequestBody ExtForm extForm) {
         String extName = extForm.getExtName();
         if (extName.isEmpty()) {
@@ -107,7 +107,7 @@ public class ExtConfigController {
     /**
      * X를 누르면 삭제된다.
      */
-    @DeleteMapping("/ext/edit/{extValue}")
+    @DeleteMapping("ext/edit/{extValue}")
     public ResponseEntity<ExtForm> removeExt(@RequestBody ExtForm extForm) {
         String extName = extForm.getExtName();
         //안겹치는지 확인
